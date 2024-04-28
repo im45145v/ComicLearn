@@ -63,9 +63,13 @@ if "transcript_filename" in locals():
         st.markdown(notes_text)
         st.markdown("---")
         #st.markdown(f"Download the notes markdown file [here](/{notes_filename})")
-        st.download_button(
-            label="Download data as md file",
-            data=notes_text,
-            file_name='notes.md',
-            mime='text/md',
-        )
+        with open(notes_filename, 'rb') as f:
+            st.download_button('Download Notes(Markdown)', f, file_name=notes_filename)
+        generate_notes_button=0
+        url_input=""    
+        # st.download_button(
+        #     label="Download data as md file",
+        #     data=notes_text,
+        #     file_name='notes.md',
+        #     mime='text/md',
+        # )
