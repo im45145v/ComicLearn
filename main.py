@@ -7,7 +7,9 @@ import google.generativeai as genai
 def download_transcribe_save(URL):
     # Download audio URL (assuming AssemblyAI supports m4a)
     with yt_dlp.YoutubeDL() as ydl:
-        info = ydl.extract_info(URL)
+        #info = ydl.extract_info(URL)
+        info = ydl.extract_info("https://youtu.be/SvbRj8R1UAo")
+        
         for format in info["formats"][::-1]:
             if format["resolution"] == "audio only" and format["ext"] == "m4a":
                 audio_url = format["url"]
