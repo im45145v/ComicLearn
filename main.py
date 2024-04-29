@@ -7,9 +7,7 @@ import google.generativeai as genai
 def download_transcribe_save(URL):
     # Download audio URL (assuming AssemblyAI supports m4a)
     with yt_dlp.YoutubeDL() as ydl:
-        info = ydl.extract_info(URL)
-        #info = ydl.extract_info("https://youtu.be/SvbRj8R1UAo")
-        
+        info = ydl.extract_info(URL, download=False)
         for format in info["formats"][::-1]:
             if format["resolution"] == "audio only" and format["ext"] == "m4a":
                 audio_url = format["url"]
@@ -17,6 +15,7 @@ def download_transcribe_save(URL):
 
     # Set AssemblyAI API key
     aai.settings.api_key = st.secrets.aai
+
     # Transcribe audio
     transcriber = aai.Transcriber()
     transcript = transcriber.transcribe(audio_url)
@@ -64,5 +63,9 @@ if "transcript_filename" in locals():
         st.markdown(notes_text)
         st.markdown("---")
         #st.markdown(f"Download the notes markdown file [here](/{notes_filename})")
-        with open(notes_filename, 'rb') as f:
-            st.download_button('Download Notes(Markdown)', f, file_name=notes_filename)
+        st.download_button(
+            label="Download data as md file",
+            data=notes_text,
+            file_name='notes.md',
+            mime='text/md',
+        )
