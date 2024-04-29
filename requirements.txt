@@ -1,4 +1,7 @@
 streamlit
-yt-dlp==2024.4.9
+langchain-google-genai
+gradio_client
+streamlit
+yt_dlp
 assemblyai
 google-generativeai
